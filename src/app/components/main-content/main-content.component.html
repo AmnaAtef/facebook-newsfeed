@@ -1,0 +1,197 @@
+<div class="container-fluid">
+  
+    
+    <!-- INPUT BLOCk-->
+    <div class="row">
+  
+      <!-- UNUSED SPACE-->
+      <div class="d-none col-md-3 d-md-block"></div>
+  
+      <!-- AT CENTER OF SCREEN-->
+      <div class="col-12  alert-secondary rounded p-4">
+        <div class="card">
+          <div class="card-header h6">
+            Create Post
+          </div>
+  
+          <div class="card-body">
+            <div class="d-flex justify-content-between" >
+                <div class="img-post">
+                    <img src="../../../assets/img/photo.jpg" width="40" height="40" style="border-radius: 50%;" alt="photo">
+                </div>
+                <textarea [(ngModel)]="post.postValue" name="text" id="textarea" placeholder=" What's on your mind?"></textarea>
+            </div>
+            
+          </div>
+  
+          <div class="card-footer pb-0" >
+            <a href="#" (click)="postText()" class="badge badge-pill badge-primary" style="font-size: medium">
+              Text
+            </a>
+  
+            <label class="badge badge-pill badge-info ml-1" style="font-size: medium; cursor: pointer;">
+              Image
+              <input (change)="postImage($event)" type="file" style="display: none">
+            </label>
+            
+            <label class="badge badge-pill badge-success ml-1" style="font-size: medium; cursor: pointer;">
+              Video
+              <input (change)="postVideo($event)" type="file" style="display: none">
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- unsed space -->
+      <div class="d-none col-md-3 d-md-block"></div>
+    </div>
+  
+  
+    <!-- MAIN SECTION CONTAINER-->
+    <div class="row mt-2">
+      
+      <div class="d-none col-md-3 d-md-block"></div>
+  
+      <!-- PARENT SECTION FOR BLOCK-->
+      <div class="col-12 col-md-12" >
+          
+        <!-- Each Item Represents Individual Post Object -->
+        <ng-container *ngFor="let item of postList; let itemIndex = index;">
+            <!-- TEXT CARD -->
+            <div *ngIf="item.postType == 'TEXT'" class="card mt-2" >
+                <div class="card-header h6">
+                    <img src="../../../assets/img/photo.jpg" width="20" height="20" style="border-radius: 50%;" alt="photo"> Amna
+                </div>
+  
+                <!-- CARD BODY SECION IS DYNAMIC-->
+                <div class="card-body pb-0">
+                  <div class="make-center beautify-post">
+                    {{item.postValue}}
+                  </div>
+  
+                  <div class="d-flex justify-content-between ">
+                    <span class="text-muted badge-light rounded p-1" style="font-size: small;">
+                      {{item.likeCount}} Abhishek and Others
+                    </span>
+                    <span class="text-muted badge-light rounded p-1" style="font-size: small;">
+                      {{item.subscribeCount}} Subscribe
+                    </span>
+                    <span class="text-muted badge-light rounded p-1" style="font-size: small;">
+                      {{item.commentList.length}} Comments
+                    </span>
+                  </div>
+                </div>
+  
+                <div class="card-footer d-flex justify-content-between pb-1">
+                  <div>
+                      <a  (click)="likeCount(item)" class="text-light badge badge-pill badge-primary" style="cursor: pointer;">Like</a>
+                      <a  (click)="subscribeCount(item)" class=" text-light badge badge-pill badge-info ml-1" style="cursor:pointer">Subscribe</a>
+                      <a  (click)="addComment(item)" class="text-light badge badge-pill badge-success ml-1" style="cursor:pointer">Comment</a>
+                  </div>
+                  
+                  <div>
+                      <a href="#" class="badge badge-pill badge-secondary">Update</a>
+                      <a (click)="deletePost(itemIndex)" style="cursor: pointer"  class="text-light badge badge-pill badge-danger ml-1">Delete</a>
+                  </div>
+                </div>
+            </div>
+  
+            <!-- Image Card-->
+            <div *ngIf="item.postType == 'IMAGE'" class="card mt-2" >
+                <div class="card-header h6">
+                    <img src="../../../assets/img/photo.jpg" width="20" height="20" style="border-radius: 50%;" alt="photo"> Amna
+                </div>
+  
+                <div class="card-body pb-0">
+                  <div class="make-center" style="height: 250px;">
+                    <img [src]="item.postValueMedia" alt="" style="height: 100%; width:100%; object-fit: contain;">
+                  </div>
+  
+                  <div class="d-flex justify-content-between ">
+                      <span class="text-muted badge-light rounded p-1" style="font-size: small;">
+                        {{item.likeCount}} Amna and Others
+                      </span>
+                      <span class="text-muted badge-light rounded p-1" style="font-size: small;">
+                        {{item.subscribeCount}} Subscribe
+                      </span>
+                      <span class="text-muted badge-light rounded p-1" style="font-size: small;">
+                        {{item.commentList.length}} Comments
+                      </span>
+                  </div>
+                </div>
+  
+                <div class="card-footer d-flex justify-content-between pb-1">
+                    <div>
+                        <a  (click)="likeCount(item)" class="text-light badge badge-pill badge-primary" style="cursor: pointer;">Like</a>
+                        <a  (click)="subscribeCount(item)" class=" text-light badge badge-pill badge-info ml-1" style="cursor:pointer">Subscribe</a>
+                        <a  (click)="addComment(item)" class="text-light badge badge-pill badge-success ml-1" style="cursor:pointer">Comment</a>
+                    </div>
+                    
+                    <div>
+                        <a href="#" class="badge badge-pill badge-secondary">Update</a>
+                        <a (click)="deletePost(itemIndex)" style="cursor: pointer"  class="text-light badge badge-pill badge-danger ml-1">Delete</a>
+                    </div>
+                </div>
+            </div>
+  
+            <!-- Video Card -->
+            <div *ngIf="item.postType == 'VIDEO'" class="card mt-2" >
+                <div class="card-header h6">
+                    <img src="../../../assets/img/photo.jpg" width="20" height="20" style="border-radius: 50%;" alt="photo"> Amna
+                </div>
+  
+                <div class="card-body pb-0">
+                  <div class="make-center" style="height:250px;">
+                    <video style="height: 100%; width:100%;" controls>
+                      <source [src]="item.postValueMedia"/>
+                    </video>
+                  </div>
+  
+                  <div class="d-flex justify-content-between ">
+                      <span class="text-muted badge-light rounded p-1" style="font-size: small;">
+                        {{item.likeCount}} Abhishek and Others
+                      </span>
+                      <span class="text-muted badge-light rounded p-1" style="font-size: small;">
+                        {{item.subscribeCount}} Subscribe
+                      </span>
+                      <span class="text-muted badge-light rounded p-1" style="font-size: small;">
+                        {{item.commentList.length}} Comments
+                      </span>
+                  </div>
+                </div>
+  
+                <div class="card-footer d-flex justify-content-between pb-1">
+                    <div>
+                        <a  (click)="likeCount(item)" class="text-light badge badge-pill badge-primary" style="cursor: pointer;">Like</a>
+                        <a  (click)="subscribeCount(item)" class=" text-light badge badge-pill badge-info ml-1" style="cursor:pointer">Subscribe</a>
+                        <a  (click)="addComment(item)" class="text-light badge badge-pill badge-success ml-1" style="cursor:pointer">Comment</a>
+                    </div>
+                    
+                    <div>
+                        <a href="#" class="badge badge-pill badge-secondary">Update</a>
+                        <a (click)="deletePost(itemIndex)" style="cursor: pointer"  class="text-light badge badge-pill badge-danger ml-1">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+          
+          <!-- NO POST AVAILABLE -->
+          <div class="card" *ngIf="postList.length === 0">
+              <div class="card-header">
+                <img src="../../../assets/img/photo.jpg" width="20" height="20" style="border-radius: 50%;" alt="photo"> Amna
+              </div>
+  
+              <div class="card-body make-center" style="height: 250px; margin: auto; padding-top: 22%;">
+                  No Available  Post yet
+              </div>
+  
+              <div class="card-footer">
+                
+              </div>
+          </div>  
+      </div>  
+  
+      <div class="d-none col-md-3 d-md-block"></div>
+    </div>
+  
+  </div>

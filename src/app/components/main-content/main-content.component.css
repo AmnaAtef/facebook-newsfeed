@@ -1,0 +1,40 @@
+
+.card{
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.card .card-header{
+    padding: 7px;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.card .card-body{
+    padding: 0;
+}
+
+.card .card-body .img-post{
+    width: 52px;
+    height: 52px;
+    padding-left: 12px;
+    padding-top: 12px;
+}
+
+.card .card-body textarea{
+    width: 448px;
+    height: 71px;
+    border: none;
+    resize: none;
+    padding: 20px 15px;
+    outline: none;
+    border-color: transparent;
+}
+
+.beautify-post {
+    font-family: cursive;
+    height: 100px;
+    font-size: 2rem;
+    letter-spacing: 1.5px;
+}
+
